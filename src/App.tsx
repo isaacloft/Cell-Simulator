@@ -110,6 +110,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <header>
+        <h1>Cell Simulator</h1>
+      </header>
       <section className="game-pane">
         {cellArray &&
           cellArray.map((cell: ICell, index: number) => {
