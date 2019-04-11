@@ -1,0 +1,30 @@
+.App {
+    text-align: center;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #000;
+}
+
+.game-pane {
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    margin: 5px auto;
+
+    & .cell-container {
+        border: 1px #e7e7e7 solid;
+        background: #fff;
+        height: 22px;
+        width: 24px;
+
+        &.active {
+            background: #000;
+        }
+    }
+}
