@@ -2,8 +2,12 @@ import React from "react";
 import IButton from "../interfaces/button-type";
 
 const Button = (props: IButton) => {
-  const btnClass = props.btnClass;
-  return <a className={btnClass}>{props.text}</a>;
+  const { btnClass, text, clickHandler } = props;
+  return (
+    <a className={btnClass} onClick={clickHandler}>
+      {text}
+    </a>
+  );
 };
 
 export default Button;

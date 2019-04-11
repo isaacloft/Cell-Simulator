@@ -2,5 +2,7 @@ export default interface IButton {
   text: string;
   event: string;
   btnClass: string;
-  // ClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  clickHandler: (event: React.MouseEvent<HTMLElement>) => void;
+
+  // onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
