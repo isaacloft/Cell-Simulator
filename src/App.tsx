@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Button from "./components/Button";
-import Cell from "./components/Cell";
-import ICell from "./interfaces/cell-type";
+import React, { useEffect, useState } from 'react';
+import Button from './components/Button';
+import Cell from './components/Cell';
+import ICell from './interfaces/cell-type';
 
-import "./App.scss";
+import './App.scss';
 
 const App = () => {
   const [cellArray, setCellArray] = useState();
@@ -27,7 +27,7 @@ const App = () => {
   };
   const cellOnClickHandler = (event: React.MouseEvent<HTMLElement>) => {
     const id = String((event.target as HTMLInputElement).id);
-    updateCells(id, "activated");
+    updateCells(id, 'activated');
   };
 
   const activatedCellNOCounterHandler = () => {
@@ -58,7 +58,7 @@ const App = () => {
     const updatedCellArray =
       cellArray &&
       cellArray.map((cell: ICell) => {
-        if (type === "activated") {
+        if (type === 'activated') {
           if (cell.id === id) {
             cell.isActivated = !cell.isActivated;
           }
@@ -137,6 +137,12 @@ const App = () => {
         )}
         <Button text="Reset" event="reset" btnClass="btn" clickHandler={resetButtonOnClickHandler} />
       </div>
+      <footer style={{ marginTop: '50px' }}>
+        Author:
+        <a href="https://www.linkedin.com/in/isaacguanloft/" target="_blank" style={{ marginLeft: '10px' }}>
+          Isaac Guan
+        </a>
+      </footer>
     </div>
   );
 };

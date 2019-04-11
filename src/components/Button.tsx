@@ -1,5 +1,5 @@
-import React from "react";
-import IButton from "../interfaces/button-type";
+import React from 'react';
+import IButton from '../interfaces/button-type';
 
 const Button = (props: IButton) => {
   const { btnClass, text, clickHandler } = props;
