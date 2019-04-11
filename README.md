@@ -1,7 +1,8 @@
 # Cell-Simulator
 
-The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Cell Simulator by creating an initial configuration and observing how it evolves.
-Demo(https://cell-simulator.herokuapp.com/)
+The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Cell Simulator by creating an initial configuration and observing how it evolves.<br><br>
+<a href="https://cell-simulator.herokuapp.com/" target="_blank">Demo</a>
+<br>
 
 ## Available Scripts
 
