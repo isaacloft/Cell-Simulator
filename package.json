@@ -21,9 +21,7 @@
     "eject": "react-scripts eject",
     "tslint": "tslint './src/**/*.{ts,tsx}'",
     "tslint:fix": "yarn tslint -- --fix",
-    "tslint:check": "tslint-config-prettier-check ./tslint.json",
-    "prettier": "prettier --write --config .prettierrc './src/**/*.{ts,tsx}'",
-    "fix-styles": "prettier-stylelint --write 'src/**/*.{css,scss}' "
+    "stylelint": "prettier-stylelint --write 'src/**/*.{css,scss}' "
   },
   "eslintConfig": {
     "extends": "react-app"
