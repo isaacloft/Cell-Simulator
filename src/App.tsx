@@ -86,8 +86,6 @@ const App = () => {
       updatedCellArray.push(newCell);
     }
     if (inNextGeneration) {
-      // setInNextGeneration(false);
-      // setsimulationStatus(!simulationStatus);
       setGenerationCounter(0);
       setCellArray(updatedCellArray);
       setGenerationCounter(generationCounter + 1);
@@ -161,6 +159,12 @@ const App = () => {
           <Button text="Evolving..." event="generating" btnClass="btn blue" clickHandler={() => {}} />
         )}
         <Button text="Pause/Reset" event="reset" btnClass="btn" clickHandler={resetButtonOnClickHandler} />
+      </div>
+      <div>
+        For more information, check{' '}
+        <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
+          this
+        </a>
       </div>
       <footer style={{ marginTop: '50px' }}>
         Author:

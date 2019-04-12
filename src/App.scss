@@ -23,6 +23,11 @@
         width: 20px;
         box-sizing: border-box;
         background-color: #fff;
+        cursor: pointer;
+        &:hover {
+            background-color: rgb(143, 134, 134);
+            animation: cellHover 0.25s;
+        }
     }
     & .isActivated {
         animation: cellActivating 0.25s;
@@ -31,6 +36,15 @@
     & .isDeactivated {
         animation: cellDeactivating 0.15s;
         background-color: #fff;
+    }
+
+    @keyframes cellHover {
+        from {
+            background-color: #fff;
+        }
+        to {
+            background-color: rgb(143, 134, 134);
+        }
     }
 
     @keyframes cellActivating {
