@@ -19,9 +19,6 @@ const App = () => {
   // This is a counter used to keep cells generating
   const [generationCounter, setGenerationCounter] = useState(0);
 
-  // If cellArray is changed, re-render the component
-  useEffect(() => {}, [cellArray]);
-
   // The generationCounter self-increments and trigger Next Generation
   useEffect(() => {
     let timeout: any;
@@ -39,7 +36,7 @@ const App = () => {
 
   // If reset is clicked
   useEffect(() => {
-    setCellArray([]);
+    // setCellArray([]);
     renderInitialCells();
   }, [simulationStatus]);
 
@@ -78,17 +75,25 @@ const App = () => {
   };
 
   const updateCells = (id: string, type: string) => {
-    const updatedCellArray =
-      cellArray &&
-      cellArray.map((cell: ICell) => {
-        if (type === 'activated') {
-          if (cell.id === id) {
-            cell.isActivated = !cell.isActivated;
-          }
+    const updatedCellArray = [];
+    for (let i = 0; i < cellArray.length; i++) {
+      const newCell = { ...cellArray[i] };
+      if (type === 'activated') {
+        if (newCell.id === id) {
+          newCell.isActivated = !newCell.isActivated;
         }
-        return cell;
-      });
-    setCellArray(updatedCellArray);
+      }
+      updatedCellArray.push(newCell);
+    }
+    if (inNextGeneration) {
+      // setInNextGeneration(false);
+      // setsimulationStatus(!simulationStatus);
+      setGenerationCounter(0);
+      setCellArray(updatedCellArray);
+      setGenerationCounter(generationCounter + 1);
+    } else {
+      setCellArray(updatedCellArray);
+    }
   };
 
   const cellEvolve = (cell: ICell) => {
