@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import Button from './components/Button';
 import Cell from './components/Cell';
@@ -9,21 +10,38 @@ const App = () => {
   const [cellArray, setCellArray] = useState();
   const [simulationStatus, setsimulationStatus] = useState(false);
   const [inGeneration, setInGeneration] = useState(false);
-  const [generationInterval, setGenerationInterval] = useState();
   const [activatedCellNO, setActivatedCellNO] = useState(0);
+  const [generationCounter, setGenerationCounter] = useState(0);
+
+  useEffect(() => {}, [cellArray]);
 
   useEffect(() => {
+    let timeout: any;
+    if (generationCounter !== 0) {
+      timeout = setTimeout(() => {
+        if (inGeneration) {
+          simulationFactory();
+        }
+      }, 300);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [generationCounter]);
+
+  useEffect(() => {
+    setCellArray([]);
     renderCell();
   }, [simulationStatus]);
 
   const renderCell = () => {
-    const cellArray = [];
+    const initialCellArray = [];
     for (let i = 0; i < 25; i++) {
       for (let j = 0; j < 25; j++) {
-        cellArray.push({ id: `cell-x.${j}.y${i}`, isActivated: false, x: j, y: i });
+        initialCellArray.push({ id: `cell-x.${j}.y${i}`, isActivated: false, x: j, y: i });
       }
-      setCellArray(cellArray);
     }
+    setCellArray(initialCellArray);
   };
   const cellOnClickHandler = (event: React.MouseEvent<HTMLElement>) => {
     const id = String((event.target as HTMLInputElement).id);
@@ -34,24 +52,24 @@ const App = () => {
     setActivatedCellNO(activatedCellNO + 1);
   };
 
-  const startNextGenerationHandler = (): any => {
-    if (!inGeneration) {
-      setInGeneration(true);
-      const interval = setInterval(() => {
-        const updatedCellArray = cellArray.map((cell: any) => {
-          cell = runSimulation(cell);
-          return cell;
-        });
-        setCellArray(updatedCellArray);
-      }, 1000);
-      setGenerationInterval(interval);
+  const simulationFactory = (): void => {
+    const newArray = [];
+    for (let i = 0; i < cellArray.length; i++) {
+      const newCell = { ...cellArray[i] };
+      newArray.push(runSimulation(newCell));
     }
+    setGenerationCounter(generationCounter + 1);
+    setCellArray(newArray);
+  };
+
+  const startNextGenerationHandler = (): any => {
+    setInGeneration(true);
+    simulationFactory();
   };
 
   const resetButtonOnClickHandler = () => {
     setInGeneration(false);
     setsimulationStatus(!simulationStatus);
-    clearInterval(generationInterval);
   };
 
   const updateCells = (id: string, type: string) => {
@@ -69,30 +87,28 @@ const App = () => {
   };
 
   const runSimulation = (cell: ICell) => {
-    if (cell.isActivated === true && countNeighbours(cell.x, cell.y, cell.id) < 2) {
-      cell.isActivated = false;
-      return cell;
+    const newCell = { ...cell };
+    if (cell.isActivated) {
+      if (countNeighbours(cell.x, cell.y, cell.id) < 2) {
+        newCell.isActivated = false;
+      }
+      if (countNeighbours(cell.x, cell.y, cell.id) === 2 || countNeighbours(cell.x, cell.y, cell.id) === 3) {
+        newCell.isActivated = true;
+      }
+      if (countNeighbours(cell.x, cell.y, cell.id) > 3) {
+        newCell.isActivated = false;
+      }
+    } else {
+      if (countNeighbours(cell.x, cell.y, cell.id) === 3) {
+        newCell.isActivated = true;
+      }
     }
-    if (
-      (cell.isActivated === true && countNeighbours(cell.x, cell.y, cell.id) === 2) ||
-      (cell.isActivated === true && countNeighbours(cell.x, cell.y, cell.id) === 3)
-    ) {
-      return cell;
-    }
-    if (cell.isActivated === true && countNeighbours(cell.x, cell.y, cell.id) > 3) {
-      cell.isActivated = false;
-      return cell;
-    }
-    if (cell.isActivated === false && countNeighbours(cell.x, cell.y, cell.id) === 3) {
-      cell.isActivated = true;
-      return cell;
-    }
-    return cell;
+    return newCell;
   };
 
   const countNeighbours = (x: number, y: number, id: string) => {
     let neighbours = 0;
-    const coordinateDiff = [[-1, 1], [0, 1], [1, 1], [-1, 0], [1, 0], [-1, -1], [1, -1]];
+    const coordinateDiff = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
 
     if (cellArray && cellArray.find((cell: ICell) => cell.id === id)) {
       coordinateDiff.map(coordinate => {

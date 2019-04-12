@@ -8,6 +8,10 @@ The "game" is a zero-player game, meaning that its evolution is determined by it
 
 In the project directory, you can run:
 
+### `yarn install`
+
+Install all dependencies
+
 ### `yarn start`
 
 Runs the app in the development mode.<br>
