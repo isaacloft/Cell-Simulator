@@ -140,7 +140,6 @@ const App = () => {
                 x={cell.x}
                 y={cell.y}
                 cellOnClickHandler={cellOnClickHandler}
-                activatedCellNOCounterHandler={activatedCellNOCounterHandler}
               />
             );
           })}

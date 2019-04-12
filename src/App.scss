@@ -25,11 +25,11 @@
         background-color: #fff;
     }
     & .isActivated {
-        animation: cellActivating 0.75s;
+        animation: cellActivating 0.25s;
         background-color: #000;
     }
     & .isDeactivated {
-        animation: cellDeactivating 0.5s;
+        animation: cellDeactivating 0.15s;
         background-color: #fff;
     }
 

@@ -4,6 +4,4 @@ export default interface ICell {
   x: number;
   y: number;
   cellOnClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
-  // onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  activatedCellNOCounterHandler: () => void;
 }
