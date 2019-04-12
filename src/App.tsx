@@ -155,7 +155,7 @@ const App = () => {
         ) : (
           <Button text="Evolving..." event="generating" btnClass="btn blue" clickHandler={() => {}} />
         )}
-        <Button text="Reset" event="reset" btnClass="btn" clickHandler={resetButtonOnClickHandler} />
+        <Button text="Pause/Reset" event="reset" btnClass="btn" clickHandler={resetButtonOnClickHandler} />
       </div>
       <footer style={{ marginTop: '50px' }}>
         Author:
