@@ -9,8 +9,7 @@ import './App.scss';
 const App = () => {
   const [cellArray, setCellArray] = useState();
   const [simulationStatus, setsimulationStatus] = useState(false);
-  const [inGeneration, setInGeneration] = useState(false);
-  const [activatedCellNO, setActivatedCellNO] = useState(0);
+  const [inNextGeneration, setInNextGeneration] = useState(false);
   const [generationCounter, setGenerationCounter] = useState(0);
 
   useEffect(() => {}, [cellArray]);
@@ -19,8 +18,8 @@ const App = () => {
     let timeout: any;
     if (generationCounter !== 0) {
       timeout = setTimeout(() => {
-        if (inGeneration) {
-          simulationFactory();
+        if (inNextGeneration) {
+          startNextGeneration();
         }
       }, 300);
     }
@@ -31,10 +30,10 @@ const App = () => {
 
   useEffect(() => {
     setCellArray([]);
-    renderCell();
+    renderInitialCells();
   }, [simulationStatus]);
 
-  const renderCell = () => {
+  const renderInitialCells = () => {
     const initialCellArray = [];
     for (let i = 0; i < 25; i++) {
       for (let j = 0; j < 25; j++) {
@@ -48,27 +47,23 @@ const App = () => {
     updateCells(id, 'activated');
   };
 
-  const activatedCellNOCounterHandler = () => {
-    setActivatedCellNO(activatedCellNO + 1);
-  };
-
-  const simulationFactory = (): void => {
+  const startNextGeneration = (): void => {
     const newArray = [];
     for (let i = 0; i < cellArray.length; i++) {
       const newCell = { ...cellArray[i] };
-      newArray.push(runSimulation(newCell));
+      newArray.push(cellEnvolve(newCell));
     }
     setGenerationCounter(generationCounter + 1);
     setCellArray(newArray);
   };
 
   const startNextGenerationHandler = (): any => {
-    setInGeneration(true);
-    simulationFactory();
+    setInNextGeneration(true);
+    startNextGeneration();
   };
 
   const resetButtonOnClickHandler = () => {
-    setInGeneration(false);
+    setInNextGeneration(false);
     setsimulationStatus(!simulationStatus);
   };
 
@@ -86,7 +81,7 @@ const App = () => {
     setCellArray(updatedCellArray);
   };
 
-  const runSimulation = (cell: ICell) => {
+  const cellEnvolve = (cell: ICell) => {
     const newCell = { ...cell };
     if (cell.isActivated) {
       if (countNeighbours(cell.x, cell.y, cell.id) < 2) {
@@ -145,7 +140,7 @@ const App = () => {
           })}
       </section>
       <div className="control-pane">
-        {!inGeneration ? (
+        {!inNextGeneration ? (
           <Button text="Start" event="generation" btnClass="btn red" clickHandler={startNextGenerationHandler} />
         ) : (
           <Button text="Generating..." event="generating" btnClass="btn blue" clickHandler={() => {}} />
