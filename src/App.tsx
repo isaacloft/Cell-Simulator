@@ -8,6 +8,7 @@ import './App.scss';
 
 const PANE_WIDTH = parseInt(process.env.REACT_APP_WIDTH_NO || '25');
 const PANE_HEIGHT = parseInt(process.env.REACT_APP_HEIGHT_NO || '25');
+const GENERATION_VELOCITY = parseInt(process.env.REACT_APP_GENERATION_VELOCITY || '100');
 
 const App = () => {
   // All cell objects are stored in cellArray
@@ -27,7 +28,7 @@ const App = () => {
         if (inNextGeneration) {
           startNextGeneration();
         }
-      }, 300);
+      }, GENERATION_VELOCITY);
     }
     return () => {
       clearTimeout(timeout);
