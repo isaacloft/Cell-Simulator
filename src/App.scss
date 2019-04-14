@@ -17,25 +17,44 @@
     flex-flow: row wrap;
     overflow: hidden;
 
-    & .cell-container {
+    // This is by far my favourite structure to define scss, chainable-bem-modifiers
+    // Format:  "js-hook block__element--variation -modifier h-helper is-state"
+    // https://webuild.envato.com/blog/chainable-bem-modifiers/
+    &__cell-container {
         border: 1px #d1c1c1 solid;
         height: 20px;
         width: 20px;
         box-sizing: border-box;
         background-color: #fff;
         cursor: pointer;
+        &.-isActivated {
+            animation: cellActivating 0.25s;
+            background-color: rgb(56, 55, 55);
+
+            &.-green-cell {
+                background-color: rgb(50, 119, 68);
+            }
+            &.-yellow-cell {
+                background-color: rgb(143, 132, 74);
+            }
+            &.-blue-cell {
+                background-color: rgb(45, 86, 163);
+            }
+            &.-brown-cell {
+                background-color: rgb(145, 84, 27);
+            }
+            &.-black-cell {
+                background-color: #000;
+            }
+        }
+        &.-isDeactivated {
+            animation: cellDeactivating 0.15s;
+            background-color: #fff;
+        }
         &:hover {
             background-color: rgb(143, 134, 134);
             animation: cellHover 0.25s;
         }
-    }
-    & .isActivated {
-        animation: cellActivating 0.25s;
-        background-color: #000;
-    }
-    & .isDeactivated {
-        animation: cellDeactivating 0.15s;
-        background-color: #fff;
     }
 
     @keyframes cellHover {
